@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaShoppingCart , FaRegEnvelope, FaBell} from 'react-icons/fa'; // Importing the cart icon from react-icons/fa
+import { FaShoppingCart, FaRegEnvelope, FaBell } from 'react-icons/fa'; // Importing the cart icon from react-icons/fa
 import User from '../nextUiComponets/user';
+import CommonButton from './commonButton';
+import { useNavigate } from 'react-router-dom';
 
 // Styled components
 const NavBarWrapper = styled.div`
@@ -39,7 +41,7 @@ const CartIconWrapper = styled.div`
     position: absolute;
     top: -9px;
     right: -5px;
-    background-color: ${props => props.totalQuantity  ? 'gray' : 'transparent'}; 
+    background-color: ${props => props.totalQuantity ? 'gray' : 'transparent'}; 
     color: #ffffff; 
     font-size: 12px; 
     border-radius: 50%; 
@@ -58,20 +60,17 @@ const CartIconWrapper = styled.div`
 
 // Functional component
 function NavBar() {
-  const dispatch = useDispatch();
-  // const cart = useSelector((state) => state.cart);
-  // const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
-  // const showDrawer = () => {
-  //   dispatch(openDrawer());
-  // };
+  const user = useSelector(state => state.auth?.user)
+  const navigate = useNavigate()
 
   return (
     <NavBarWrapper>
-      
-      <UserWrapper>
-        <User />
-      </UserWrapper>
+      {
+        user ? <UserWrapper>
+          <User user={user} />
+        </UserWrapper> : <CommonButton onClick={()=>navigate("/login")} type={"primary"}>Login</CommonButton>
+      }
     </NavBarWrapper>
   );
 }

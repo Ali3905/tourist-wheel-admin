@@ -15,6 +15,7 @@ import { addCleanerAsync } from '../../redux/cleanersSlice';
 import { addEmployeeAsync } from '../../redux/employeesSlice';
 import { addTechnicianAsync } from '../../redux/technicianSlice';
 import { addVehicleAsync } from '../../redux/vehiclesSlice';
+import { loginUserAsync } from '../../redux/authSlice';
 
 
 
@@ -24,6 +25,7 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const myindex = useSelector((state) => state.sidebar.selectedParentIndex);
+  const isSignedIn = useSelector(state => state.auth.isSignedIn)
   const [filteredData, setFilteredData] = useState(CouponDummyData);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -101,6 +103,7 @@ const MainPage = () => {
       { id: 'addTruck', path: '/addTruck', formType: 'truck' },
       { id: 'addTechnician', path: '/addTechnician', formType: 'technician' },
       { id: 'addEmployee', path: '/addEmployee', formType: 'employee' },
+      { id: 'login', path: '/login', formType: 'login' },
     ];
 
     const currentFormConfig = formsConfig.find((config) => config.path === location.pathname);
@@ -147,18 +150,11 @@ const MainPage = () => {
       formData.append("type", "TRUCK")
       dispatch(addVehicleAsync(formData))
       navigate("/vehicles")
+    } else if (currentFormConfig.id === "login") {
+      dispatch(loginUserAsync(values))
+      
+
     }
-
-    // const entityName = currentFormType.charAt(0).toUpperCase() + currentFormType.slice(1);
-    // const successMessage = `${entityName} ${isSuccess ? 'added' : 'addition failed. Please try again.'} successfully!`;
-
-
-
-    // Dispatching form details
-    // dispatch(setFormDetails({
-    //   formType: currentFormType,
-    //   values : mergedValues
-    // }));
   };
 
   return (

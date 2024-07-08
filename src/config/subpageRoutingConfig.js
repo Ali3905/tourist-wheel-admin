@@ -7,8 +7,13 @@ import AddDailyRoute from "../pages/subpages/AddDailyRoute.jsx";
 import UpdateDailyRoute from "../pages/Vehicle Inspection/UpdateDailyRoute.jsx";
 import AddEmployee from "../pages/subpages/AddEmployee.jsx";
 import AddTruck from "../pages/subpages/AddTruck.jsx";
+import Login from "../pages/login.jsx";
 export const SubpageRoutingConfig = [
-	
+	// {
+	// 	name: "Login",
+	// 	path: "/login",
+	// 	component: <Login />
+	// },
 	{
 		name: 'Add Driver',
 		path: '/addDriver',

@@ -22,7 +22,7 @@ const agenciesSlice = createSlice({
                     });
 
                     state.data = filtered
-                })
+            })
     },
 });
 

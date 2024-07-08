@@ -45,7 +45,7 @@ import PackageBooking from '../pages/Vehicle Inspection/PackageBooking.jsx';
 import AvailableDrivers from '../pages/Available Drivers/index.jsx';
 import Agencies from '../pages/Agencies/index.jsx';
 export const LoginRoutingConfig = [
-	{ name: 'Login', path: '/', component: <Login /> },
+	{ name: '', path: '/', component: <Login /> },
 ]
 
 export const RoutingConfig = [

@@ -12,6 +12,7 @@ import cleanersSlice from './redux/cleanersSlice';
 import vehiclesSlice from './redux/vehiclesSlice';
 import dailyRoutesSlice from './redux/dailyRoutesSlice';
 import agenciesSlice from './redux/agenciesSlice';
+import authSlice from './redux/authSlice';
 
 // Create the Redux store
 const store = configureStore({
@@ -27,7 +28,8 @@ const store = configureStore({
     cleaners: cleanersSlice,
     vehicles: vehiclesSlice,
     dailyRoutes: dailyRoutesSlice,
-    agencies: agenciesSlice
+    agencies: agenciesSlice,
+    auth: authSlice
   },
 });
 
