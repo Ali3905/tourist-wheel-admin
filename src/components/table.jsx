@@ -1,5 +1,5 @@
 // CustomTable.js
-import React from 'react';
+import React, { useState } from 'react';
 import {
     TableContainer,
     Paper,
@@ -18,9 +18,11 @@ import { useSelector } from 'react-redux';
 import TableMenu from './tableMenu';
 import Highlate from './highlate'
 import { useNavigate } from 'react-router-dom';
+import CommonButton from './commonButton';
+import ConfirmationModal from './ConfirmationModal';
 const CustomTable = ({ columns, data }) => {
-    // console.log("data", data)
-    // console.log("columns", columns);
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedTechnicianId, setSelectedTechnicianId] = useState(null)
     const navigate = useNavigate()
     const selectedItem = useSelector((state) => state.sidebar.selectedParentIndex);
     // console.log(selectedItem, "tableindexCheck")
@@ -42,23 +44,16 @@ const CustomTable = ({ columns, data }) => {
     }
 `;
 
-    const renderStatusCell = (row) => {
-        return (
-            <TableCell>
-                <Status
-                    id={row?.id}
-                    status={statusData[row?.id]}
-                    buttonStatus={row?.status}
-                />
-            </TableCell>
-        );
-    };
-
     const handleViewClick = (col, row) => {
-        console.log('View clicked for :', col.label,);
+        console.log('View clicked for :', col.label);
     };
-    const handleUpdateClick = (row) => {
-        navigate(`/`)
+    const handleUpdateClick = (id) => {
+        navigate(`/technician/${id}`)
+    }
+
+    const handleDeleteClick = (id) => {
+        setSelectedTechnicianId(id)
+        setIsModalOpen(true)
     }
     const HoverableTableRow = styled(MuiTableRow)`
     &:hover {
@@ -69,93 +64,67 @@ const CustomTable = ({ columns, data }) => {
     return (
 
         <>
-        {
-            data ? <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow >
-                        {columns.map((column) => (
-                            <TableCell style={{whiteSpace : "nowrap"}} key={column.id}>{column.label}</TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data?.map((row) => (
-                        <HoverableTableRow key={row?.id}>
-                            {columns.map((column) => {
-                                return (
-                                    <React.Fragment key={column.id}>
-                                        {column.id === "photo" || column.id === "photos" || column.id === "afterJourneyPhotos" || column.id === "beforeJourneyPhotos" ?
-                                            <TableCell>
-                                                <StyledViewButton >View</StyledViewButton>
-                                            </TableCell> : column.id === "aadharCard" ?
-                                                <TableCell>
-                                                    <StyledViewButton >View</StyledViewButton>
-                                                </TableCell> :
-                                                row?.[column.id] === true ? (
+            {selectedTechnicianId && <ConfirmationModal isOpen={isModalOpen} technicianId={selectedTechnicianId} text={`Do you want to delete the ${selectedTechnicianId} technician`} />}
+            {
+                data ? <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow >
+                                {columns.map((column) => (
+                                    <TableCell style={{ whiteSpace: "nowrap" }} key={column.id}>{column.label}</TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {data?.map((row) => (
+                                <HoverableTableRow key={row?.id}>
+                                    {columns.map((column) => {
+                                        return (
+                                            <React.Fragment key={column.id}>
+                                                {column.id === "photo" || column.id === "photos" || column.id === "afterJourneyPhotos" || column.id === "beforeJourneyPhotos" ?
                                                     <TableCell>
-                                                        <StyledViewButton>Yes</StyledViewButton>
-                                                    </TableCell>
-                                                ) : row?.[column.id] === false ? (
-                                                    <TableCell>
-                                                        <StyledViewButton>No</StyledViewButton>
-                                                    </TableCell>
-                                                ) : column.label === "Accept/Reject" ? (
-                                                    <>
-                                                        {renderStatusCell(row)}
-                                                    </>
-                                                ) : column.id === "update" ? (
-                                                    <TableCell>
-                                                        <StyledViewButton onClick={()=>handleUpdateClick(row)}>Update</StyledViewButton>
-                                                    </TableCell>
-                                                ) : typeof row?.[column.id] === 'object' ? 
-                                                <TableCell onClick={() => navigate(`/Details/${row?.id}`)}>{row?.[column.id]?.[column.fieldId]}</TableCell>
-                        
-                                                    : column.label === "Transfter" ? (
-                                                        <>
-                                                            {renderStatusCell(row)}
-                                                        </>
-                                                    ) : column.label === "Acceptance" ? (
+                                                        <StyledViewButton >View</StyledViewButton>
+                                                    </TableCell> : column.id === "aadharCard" ?
+                                                        <TableCell>
+                                                            <StyledViewButton >View</StyledViewButton>
+                                                        </TableCell> :
+                                                        row?.[column.id] === true ? (
+                                                            <TableCell>
+                                                                <StyledViewButton>Yes</StyledViewButton>
+                                                            </TableCell>
+                                                        ) : row?.[column.id] === false ? (
+                                                            <TableCell>
+                                                                <StyledViewButton>No</StyledViewButton>
+                                                            </TableCell>
+                                                        ) : column.id === "edit" ? (
+                                                            <TableCell>
+                                                                <StyledViewButton onClick={() => handleUpdateClick(row._id)}>Edit</StyledViewButton>
+                                                            </TableCell>
+                                                        ) : column.id === "delete" ? (
+                                                            <TableCell>
+                                                                <CommonButton onClick={() => handleDeleteClick(row._id)} >Delete</CommonButton>
 
-                                                        <TableCell><Status status={row?.[column.id]} /></TableCell>
+                                                            </TableCell>
+                                                        ) : typeof row?.[column.id] === 'object' ?
+                                                            <TableCell onClick={() => navigate(`/Details/${row?.id}`)}>{row?.[column.id]?.[column.fieldId]}</TableCell>
 
-                                                    )
-                                                        : column.label === "Action" ? (
+                                                            : (
+                                                                <TableCell style={{ whiteSpace: "nowrap" }} onClick={() => navigate(`/Details/${row?.id}`)}>{row?.[column.id]}</TableCell>
 
-                                                            <TableCell> <TableMenu /></TableCell>
-
-                                                        ) : column.label === "Partner" ? (
-
-                                                                <TableCell>< Highlate status={'Partner'}>{row?.[column.id]}</Highlate></TableCell>
-
-
-                                                            ) : column.label === "Success" ? (
-                                                                    <TableCell>< Highlate status={'Success'}>{row?.[column.id]}</Highlate></TableCell>
-                                                                ): column.label === "Failure" ? (
-                                                                        <TableCell>< Highlate status={'Failure'}>{row?.[column.id]}</Highlate></TableCell>
-                                                                    ) : (
-                                                                        column.id === "assigneeDetails" ? (
-                                                                            <TableCell> <ClickPopover assignee={row?.[column.id]} /></TableCell>
-                                                                        ) : column.id === "orderTimings" ? (
-                                                                            <TableCell> <HoverPopover timings={row?.[column.id]} /></TableCell>
-
-                                                                        ) : (
-                                                                            <TableCell style={{whiteSpace : "nowrap"}} onClick={() => navigate(`/Details/${row?.id}`)}>{row?.[column.id]}</TableCell>
-                                                                        )
-                                                                    )}
-                                    </React.Fragment>
-                                );
-                            })}
+                                                            )}
+                                            </React.Fragment>
+                                        );
+                                    })}
 
 
-                        </HoverableTableRow>
-                    ))}
-                </TableBody>
+                                </HoverableTableRow>
+                            ))}
+                        </TableBody>
 
 
-            </Table>
-        </TableContainer> : "Loading..."
-        }
+                    </Table>
+                </TableContainer> : "Loading..."
+            }
         </>
 
     );

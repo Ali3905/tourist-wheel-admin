@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { RoutingConfig } from '../config/routingConfig';
 import { SubpageRoutingConfig } from '../config/subpageRoutingConfig';
 import Layout from './layout';
@@ -8,10 +8,12 @@ import OverView from '../pages/overView/overView';
 import Login from '../pages/login';
 
 const route = () => {
+    
+
     return (
         <Routes>
             <Route element={
-                <div style={{ display : "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
                     <FormBuilder />
                 </div>
             }>

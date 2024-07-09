@@ -10,10 +10,10 @@ import Sort from '../../components/sort';
 import { columnsForCouponTable, columnsForWalletsTable, columnsForRefundTable, RefundDummyData, CouponDummyData, WalletDummyData } from '../../jsonData/tableData';
 import CustomTablePagination from '../../components/CustomTablePagination';
 import { addDriverAsync } from '../../redux/driversSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { addCleanerAsync } from '../../redux/cleanersSlice';
 import { addEmployeeAsync } from '../../redux/employeesSlice';
-import { addTechnicianAsync } from '../../redux/technicianSlice';
+import { addTechnicianAsync, updateTechnicianAsync } from '../../redux/technicianSlice';
 import { addVehicleAsync } from '../../redux/vehiclesSlice';
 import { loginUserAsync } from '../../redux/authSlice';
 
@@ -21,16 +21,17 @@ import { loginUserAsync } from '../../redux/authSlice';
 
 const MainPage = () => {
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false)
   const [files, setFiles] = useState({});
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const myindex = useSelector((state) => state.sidebar.selectedParentIndex);
-  const isSignedIn = useSelector(state => state.auth.isSignedIn)
   const [filteredData, setFilteredData] = useState(CouponDummyData);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const filteredcolumnsForCouponTable = columnsForCouponTable
   const navigate = useNavigate()
+  const { technicianId } = useParams()
 
   const handleFilterChange = ({ column, fromValue, toValue }) => {
     const formatDate = (date) => date ? new Date(date).toLocaleDateString() : null;
@@ -94,6 +95,7 @@ const MainPage = () => {
 
   const onFinish = (values) => {
     // const isSuccess = true;
+    setIsLoading(true)
     const formsConfig = [
       { id: 'addDriver', path: '/addDriver', formType: 'driver' },
       { id: 'addCleaner', path: '/addCleaner', formType: 'cleaner' },
@@ -104,9 +106,10 @@ const MainPage = () => {
       { id: 'addTechnician', path: '/addTechnician', formType: 'technician' },
       { id: 'addEmployee', path: '/addEmployee', formType: 'employee' },
       { id: 'login', path: '/login', formType: 'login' },
+      { id: 'editTechnician', path: '/technician', formType: 'login' },
     ];
 
-    const currentFormConfig = formsConfig.find((config) => config.path === location.pathname);
+    const currentFormConfig = formsConfig.find((config) => location.pathname.startsWith(config.path));
     // const currentFormType = currentFormConfig ? currentFormConfig.formType : 'form';
 
     const mergedValues = { ...values, ...files };
@@ -152,9 +155,12 @@ const MainPage = () => {
       navigate("/vehicles")
     } else if (currentFormConfig.id === "login") {
       dispatch(loginUserAsync(values))
-      
-
+    }  else if (currentFormConfig.id === "editTechnician") {
+      const finalVal = { ...values, technicianId }
+      dispatch(updateTechnicianAsync(finalVal))
+      navigate("/technicians")
     }
+    setIsLoading(false)
   };
 
   return (
@@ -237,11 +243,13 @@ const MainPage = () => {
         )
       }
 
+      
+
       <Form form={form} layout="vertical" onFinish={onFinish} >
         <Outlet context={{ handleFileChange }} />
         <div style={{ display: 'flex', justifyContent: 'end' }}>
           <Styled.SubmitButton primary={myindex !== 21 && myindex !== 22 && myindex !== 24} htmlType="submit">
-            Save
+            {isLoading?"Saving":"Save"}
           </Styled.SubmitButton>
         </div>
       </Form>

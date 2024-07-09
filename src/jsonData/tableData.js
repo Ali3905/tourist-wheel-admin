@@ -1220,6 +1220,8 @@ export const columnsForTechnicians = [
     { id: 'alternateNumber', label: 'Alternate Number' },
     { id: 'technicianType', label: 'Technician Type' },
     { id: "vehicleType", label: "Vehicle Type" },
+    { id: "delete", label: "Delete" },
+    { id: "edit", label: "Edit" },
 ]
 
 export const dataForTechnicians = [{

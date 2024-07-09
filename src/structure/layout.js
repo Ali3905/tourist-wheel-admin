@@ -5,8 +5,7 @@ import SideBar from '../components/sideBar';
 import NavBar from '../components/navBar';
 import Heading from '../components/heading';
 import Popup from '../components/popup';
-// import CustomDrawer from '../components/drawer'
-// import { useSelector } from 'react-redux';
+
 const FlexCard = styled.div`
   display: flex;
 `;

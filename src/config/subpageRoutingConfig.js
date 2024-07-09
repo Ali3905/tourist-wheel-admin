@@ -8,6 +8,7 @@ import UpdateDailyRoute from "../pages/Vehicle Inspection/UpdateDailyRoute.jsx";
 import AddEmployee from "../pages/subpages/AddEmployee.jsx";
 import AddTruck from "../pages/subpages/AddTruck.jsx";
 import Login from "../pages/login.jsx";
+import UpdateTechnician from "../pages/UpdateTechnician.jsx";
 export const SubpageRoutingConfig = [
 	// {
 	// 	name: "Login",
@@ -33,6 +34,11 @@ export const SubpageRoutingConfig = [
 		name: 'Add Technician',
 		path: '/addTechnician',
 		component: <AddTechnician />,
+	},
+	{
+		name: 'Add Technician',
+		path: '/technician/:technicianId',
+		component: <UpdateTechnician />,
 	},
 	{
 		name: 'Add Car',

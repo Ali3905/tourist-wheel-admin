@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaShoppingCart, FaRegEnvelope, FaBell } from 'react-icons/fa'; // Importing the cart icon from react-icons/fa
 import User from '../nextUiComponets/user';
 import CommonButton from './commonButton';
 import { useNavigate } from 'react-router-dom';
+import { getUserAsync } from '../redux/authSlice';
 
 // Styled components
 const NavBarWrapper = styled.div`
@@ -61,9 +62,13 @@ const CartIconWrapper = styled.div`
 // Functional component
 function NavBar() {
 
-  const user = useSelector(state => state.auth?.user)
+  const user = useSelector(state => state.auth?.data)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
+  useEffect(()=>{
+    dispatch(getUserAsync())
+  }, [])
   return (
     <NavBarWrapper>
       {

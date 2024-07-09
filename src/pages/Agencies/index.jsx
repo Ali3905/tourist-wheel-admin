@@ -68,7 +68,7 @@ const Agencies = () => {
 
         <div style={{ display: "flex", justifyContent: "space-between", width: "50%" }}>
 
-          <AddButton />
+          {/* <AddButton /> */}
           <Search onSearchChange={handleSearchChange} />
           <Sort onSortChange={handleSortChange} />
           {/* <Filter columns={columnsForDrivers} onFilterChange={handleFilterChange} /> */}

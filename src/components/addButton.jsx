@@ -30,40 +30,7 @@ function AddButton() {
 
   switch (selectedIndex) {
     case 4:
-      buttonText = "Add Employee";
-      break;
-    case 5:
-      buttonText = "Add Driver";
-      break;
-    case 6:
-      buttonText = "Add Cleaner"
-      break;
-    case 8:
-      buttonText = "Add Vehicle"
-      break;
-    case 9:
-      buttonText = "Add Vehicle"
-      break;
-    case 10:
-      buttonText = "Add Vehicle"
-      break;
-    case 11:
-      buttonText = "Add Vehicle"
-      break;
-    case 17:
-      buttonText = "Add Daily Route"
-      break;
-    case 1:
-      buttonText = "Add Daily Route"
-      break;
-    case 18:
-      buttonText = "Add Package Booking"
-      break;
-    case 2:
-      buttonText = "Add Package Booking"
-      break;
-    case 20:
-      buttonText = "Add Technician"
+      buttonText = "Add Technician";
       break;
     default:
       buttonText = 'Add';
@@ -76,20 +43,8 @@ function AddButton() {
 
   const handleEvents = () => {
     if (selectedIndex === 4) {
-      navigate("/addEmployee")
-    } else if (selectedIndex === 5) {
-      navigate('/addDriver')
-    } else if (selectedIndex === 6) {
-      navigate('/addCleaner')
-    } else if (selectedIndex === 12) {
-      navigate('/addVehicle')
-    }  else if (selectedIndex === 17 || selectedIndex === 1) {
-      navigate('/addDailyRoute')
-    } else if (selectedIndex === 18 || selectedIndex === 2) {
-      navigate('/addPackageBooking')
-    } else if (selectedIndex === 20) {
-      navigate('/addTechnician')
-    } else {
+      navigate("/addTechnician")
+    }  else {
       handleClosePopup();
     }
   };
