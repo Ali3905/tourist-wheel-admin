@@ -8,6 +8,9 @@ const CommonButton = ({ type, onClick, children }) => {
     case 'primary':
       buttonColor = '#FC7E06'; 
       break;
+    case 'secondary':
+      buttonColor = '#228822'; 
+      break;
     case 'default':
     default:
       buttonColor = '#ff4d4f'; 

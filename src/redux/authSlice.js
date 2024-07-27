@@ -19,7 +19,8 @@ const authSlice = createSlice({
             .addCase(getUserAsync.fulfilled,
                 (state, action) => {
                     state.status = "fulfilled"
-                    state.data = action.payload
+                    state.user = action.payload
+                    console.log({user: action.payload})
                 })
             .addCase(loginUserAsync.fulfilled,
                 (state, action) => {
@@ -40,7 +41,7 @@ export const getUserAsync = createAsyncThunk(
     async () => {
         const res = await axios({
             method: "get",
-            url: "https://tourist-wheel-server.vercel.app/api/user/",
+            url: `https://${process.env.REACT_APP_SERVER_HOST}/api/user`,
             headers: { authtoken: localStorage.getItem("token") }
         })
         return res.data.data;
@@ -53,7 +54,7 @@ export const loginUserAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "post",
-                url: "https://tourist-wheel-server.vercel.app/api/user/login",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/user/login`,
                 data
             })
             message['success']("Login successFull")

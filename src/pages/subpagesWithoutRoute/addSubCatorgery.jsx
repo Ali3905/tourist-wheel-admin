@@ -1,7 +1,7 @@
 import React from 'react'
 import Catogerydata from '../../jsonData/catogery.json';
 import styled from 'styled-components';
-import SearchNavbar from '../userScreenManagement/userScreenManagementComponents/searchNavbar';
+// import SearchNavbar from '../userScreenManagement/userScreenManagementComponents/searchNavbar';
 import DragCards from '../../components/dragCards';
 
 
@@ -21,7 +21,7 @@ function AddSubCatorgery() {
 
   return (
     <SubWrapper>
-      <SearchNavbar selectValues={searchValues} buttonValue={buttonName} />
+      {/* <SearchNavbar selectValues={searchValues} buttonValue={buttonName} /> */}
       <DragCards initialItems={Catogerydata} />
     </SubWrapper>
   )

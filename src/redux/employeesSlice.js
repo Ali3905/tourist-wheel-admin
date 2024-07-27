@@ -36,7 +36,7 @@ export const getEmployeesAsync = createAsyncThunk(
     async () => {
         const res = await axios({
             method: "get",
-            url: "https://tourist-wheel-server.vercel.app/api/employee",
+            url: `https://${process.env.REACT_APP_SERVER_HOST}/api/employee`,
             headers: {
                 authtoken: localStorage.getItem("token")
             }
@@ -51,7 +51,7 @@ export const addEmployeeAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "post",
-                url: "https://tourist-wheel-server.vercel.app/api/employee",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/employee`,
                 data: data,
                 headers: {
                     authtoken: localStorage.getItem("token")

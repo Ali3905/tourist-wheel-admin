@@ -15,8 +15,8 @@ const labels = [
     { name: 'name', label: 'Full Name', type: 'text', rules: [{ required: true, message: 'Please enter your name' }] },
 
 
-    { name: 'mobileNumber', label: 'Mobile Number', type: 'text', rules: [{ required: true, message: 'Please enter your phone number', min: 10, max: 11 }] },
-    { name: 'alternateNumber', label: 'Alternate Number', type: 'text', rules: [{ required: true, message: 'Please enter your alternate phone number', min: 10, max: 11 }] },
+    { name: 'mobileNumber', label: 'Mobile Number', type: 'text', rules: [{ required: true, message: 'Please enter your phone number', min: 10, max: 12 }] },
+    { name: 'alternateNumber', label: 'Alternate Number', type: 'text', rules: [{ required: true, message: 'Please enter your alternate phone number', min: 10, max: 12 }] },
     { name: 'technicianType', label: 'Technician Type', type: 'select', options: ["MECHANIC", "ELECTICIAN", "SPAREPARTSHOP", "SPRINGWORK", "BATTERYSERVICES", "VEHICLEBODYREPAIR"], rules: [{ required: true, message: 'Please enter the technician type' }] },
     { name: 'vehicleType', label: 'Vehicle Type', type: 'select', options: ["ALL", "CAR", "BUS", "TRUCK"], rules: [{ required: true, message: 'Please enter the vehicle type' }] },
 

@@ -6,26 +6,32 @@ import Route from "./structure/route"
 import "./styles/global.css"
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getUserAsync } from "./redux/authSlice";
+import { user } from "@nextui-org/react";
 export const ThemeContext = React.createContext(null);
 
 const App = () => {
   const [theme, setTheme] = useState("light");
   const themeStyle = theme === "light" ? lightTheme : darkTheme;
 
-  const isSignedIn = useSelector(state => state.auth.isSignedIn)
+  const { isSignedIn, user } = useSelector(state => state.auth)
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
   useEffect(() => {
     if (!isSignedIn) {
-      navigate("/login")
+     return  navigate("/login")
     }
-    console.log({pathname});
+    getUserAsync()
+    if (!user) {
+      return  navigate("/login")
+    }
+    
   }, [isSignedIn])
 
   return (
     <>
-      {isSignedIn || pathname === "/login" ? <ThemeContext.Provider value={{ setTheme, theme }}>
+      {( isSignedIn && user ) || pathname === "/login"  ? <ThemeContext.Provider value={{ setTheme, theme }}>
         <ThemeProvider theme={themeStyle}>
           <GlobalStyle />
           <Route />

@@ -1220,6 +1220,8 @@ export const columnsForTechnicians = [
     { id: 'alternateNumber', label: 'Alternate Number' },
     { id: 'technicianType', label: 'Technician Type' },
     { id: "vehicleType", label: "Vehicle Type" },
+    { id: "state", label: "State" },
+    { id: "city", label: "City" },
     { id: "delete", label: "Delete" },
     { id: "edit", label: "Edit" },
 ]
@@ -1918,6 +1920,7 @@ export const columnsForAgencies = [
     { id: 'whatsappNumber', label: 'Whatsapp' },
     { id: 'state', label: 'State' },
     { id: 'city', label: 'City' },
+    { id: 'isSubsciptionValid', label: 'Subscription' },
     { id: 'noOfDrivers', label: 'No. Of Drivers' },
     { id: 'noOfVehicles', label: 'No. Of Vehicles' },
 ]

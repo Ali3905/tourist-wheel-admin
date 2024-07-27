@@ -19,8 +19,7 @@ const technicianSlice = createSlice({
             .addCase(getTechniciansAsync.fulfilled,
                 (state, action) => {
                     state.status = "fulfilled"
-                    state.data = action.payload
-                    console.log(state.data);
+                    state.data = action.payload.apiPage === 1 ? action.payload.data : [...state.data, ...action.payload.data]
                 })
             .addCase(addTechnicianAsync.fulfilled,
                 (state, action) => {
@@ -33,19 +32,18 @@ const technicianSlice = createSlice({
                 })
             .addCase(getTechnicianByIdAsync.fulfilled,
                 (state, action) => {
-                    console.log({ pay: action.payload });
                     state.selectedTechnician = action.payload
                 })
             .addCase(updateTechnicianAsync.fulfilled,
                 (state, action) => {
                     const filtered = state.data.map((technician) => {
                         if (technician._id !== action.payload._id) {
-                            console.log({tid: technician._id, pid: action.payload._id});
+                            console.log({ tid: technician._id, pid: action.payload._id });
                             return technician
                         }
                         return action.payload
                     })
-                    console.log({filtered});
+                    console.log({ filtered });
                     state.data = filtered
                 })
     },
@@ -53,15 +51,15 @@ const technicianSlice = createSlice({
 
 export const getTechniciansAsync = createAsyncThunk(
     "technicians/getTechnicians",
-    async () => {
+    async (apiPage) => {
         const res = await axios({
             method: "get",
-            url: "https://tourist-wheel-server.vercel.app/api/technician",
+            url: `https://${process.env.REACT_APP_SERVER_HOST}/api/technician?page=${apiPage}`,
             headers: {
                 authtoken: localStorage.getItem("token")
             }
         })
-        return res.data.data;
+        return { data: res.data.data, apiPage };
     }
 );
 
@@ -71,7 +69,7 @@ export const addTechnicianAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "post",
-                url: "https://tourist-wheel-server.vercel.app/api/technician",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/technician`,
                 data: data,
                 headers: {
                     authtoken: localStorage.getItem("token")
@@ -88,11 +86,11 @@ export const addTechnicianAsync = createAsyncThunk(
 export const updateTechnicianAsync = createAsyncThunk(
     "technicians/updateTechnician",
     async (data) => {
-        console.log({data: data.technicianId});
+        console.log({ data: data.technicianId });
         try {
             const res = await axios({
                 method: "patch",
-                url: `https://tourist-wheel-server.vercel.app/api/technician?technicianId=${data.technicianId}`,
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/technician?technicianId=${data.technicianId}`,
                 data: data,
                 headers: {
                     authtoken: localStorage.getItem("token")
@@ -112,7 +110,7 @@ export const deleteTechnicianAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "delete",
-                url: `https://tourist-wheel-server.vercel.app/api/technician?technicianId=${technicianId}`,
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/technician?technicianId=${technicianId}`,
                 headers: {
                     authtoken: localStorage.getItem("token")
                 }
@@ -131,7 +129,7 @@ export const getTechnicianByIdAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "get",
-                url: `https://tourist-wheel-server.vercel.app/api/technician/${technicianId}`,
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/technician/${technicianId}`,
                 headers: {
                     authtoken: localStorage.getItem("token")
                 }

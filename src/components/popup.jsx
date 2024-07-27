@@ -7,8 +7,8 @@ import { Col, Row, Radio } from 'antd';
 import { Card } from '../components/card';
 import CommonFields from '../pages/subpages/addProduct/commonFeilds';
 import { catogeryPopupLabel, transferPopupLabel } from './popupConstants';
-import Product from '../jsonData/product.json';
-import ProductCard from '../pages/userScreenManagement/userScreenManagementComponents/productCard';
+// import Product from '../jsonData/product.json';
+// import ProductCard from '../pages/userScreenManagement/userScreenManagementComponents/productCard';
 import Search from './search';
 import AddButton from './addButton';
 
@@ -60,14 +60,14 @@ const Popup = () => {
               <ModalHeader className="flex flex-col gap-1">Add products</ModalHeader>
               <ModalBody>
                 <Search onSearchChange={handleSearchChange} width="100%" />
-                <ProductGridContainer>
+                {/* <ProductGridContainer>
                   {Product.map((item, index) => (
                     <ProductCard
                       key={index}
                       cardData={item}
                     />
                   ))}
-                </ProductGridContainer>
+                </ProductGridContainer> */}
                
     
               

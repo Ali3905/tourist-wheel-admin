@@ -37,7 +37,7 @@ export const getDailyRoutesAsync = createAsyncThunk(
     async () => {
         const res = await axios({
             method: "get",
-            url: "https://tourist-wheel-server.vercel.app/api/dailyRoute"
+            url: `https://${process.env.REACT_APP_SERVER_HOST}/api/dailyRoute`
         })
         return res.data.data;
     }
@@ -49,7 +49,7 @@ export const addDailyRouteAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "post",
-                url: "https://tourist-wheel-server.vercel.app/api/dailyRoute",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/dailyRoute`,
                 data: data
             })
             message[res.data.success ? 'success' : 'error']("Vehicle Created successfully");
@@ -66,7 +66,7 @@ export const finalizeDailyRouteAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "patch",
-                url: `https://tourist-wheel-server.vercel.app/api/dailyRoute/${routeId}`,
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/dailyRoute/${routeId}`,
                 data: data
             })
             message[res.data.success ? 'success' : 'error']("Vehicle finalized successfully");

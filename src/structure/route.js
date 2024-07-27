@@ -4,8 +4,8 @@ import { RoutingConfig } from '../config/routingConfig';
 import { SubpageRoutingConfig } from '../config/subpageRoutingConfig';
 import Layout from './layout';
 import FormBuilder from "../pages/builders/formBuilder";
-import OverView from '../pages/overView/overView';
 import Login from '../pages/login';
+import Agencies from '../pages/Agencies';
 
 const route = () => {
     
@@ -20,7 +20,7 @@ const route = () => {
                 <Route path='/login' element={<Login />} />
             </Route>
             <Route element={<Layout />} >
-                <Route path='/' element={<OverView />} />
+                <Route path='/' element={<Agencies />} />
             </Route>
             <Route element={<Layout />}>
                 {RoutingConfig.map((data, key) => (

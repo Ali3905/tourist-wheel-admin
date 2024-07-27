@@ -6,7 +6,9 @@ import { useOutletContext } from 'react-router-dom';
 const { Option } = Select;
 
 const labels = [
-    { name: 'name', label: 'Full Name', type: 'text', rules: [{ required: true, message: 'Please enter your name' }] },
+    { name: 'name', label: 'Full Name', type: 'text', rules: [{ required: true, message: 'Please enter technician name' }] },
+    { name: 'city', label: 'City', type: 'text', rules: [{ required: true, message: 'Please enter technician city' }] },
+    { name: 'state', label: 'State', type: 'text', rules: [{ required: true, message: 'Please enter technician state' }] },
 
 
     { name: 'mobileNumber', label: 'Mobile Number', type: 'text', rules: [{ required: true, message: 'Please enter your phone number', min: 10, max: 11 }] },

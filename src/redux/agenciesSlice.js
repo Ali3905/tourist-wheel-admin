@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { message } from "../GlobalImports"
 import axios from "axios";
 
 
@@ -32,7 +31,7 @@ export const getAgenciesAsync = createAsyncThunk(
     async () => {
         const res = await axios({
             method: "get",
-            url: "https://tourist-wheel-server.vercel.app/api/user/AGENCY",
+            url: `https://${process.env.REACT_APP_SERVER_HOST}/api/user/AGENCY`,
             headers: { authtoken: localStorage.getItem("token") }
         })
         return res.data.data;

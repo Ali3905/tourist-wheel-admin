@@ -24,11 +24,6 @@ const CustomTable = ({ columns, data }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedTechnicianId, setSelectedTechnicianId] = useState(null)
     const navigate = useNavigate()
-    const selectedItem = useSelector((state) => state.sidebar.selectedParentIndex);
-    // console.log(selectedItem, "tableindexCheck")
-    // const orderTable = selectedItem === 3
-    const statusData = useSelector((state) => state.status);
-    // console.log(statusData, 'statusData')
 
     const StyledViewButton = styled.button`
     background-color: #ffffff;
@@ -88,11 +83,11 @@ const CustomTable = ({ columns, data }) => {
                                                         <TableCell>
                                                             <StyledViewButton >View</StyledViewButton>
                                                         </TableCell> :
-                                                        row?.[column.id] === true ? (
+                                                        column.id === "isSubsciptionValid" ? (
                                                             <TableCell>
-                                                                <StyledViewButton>Yes</StyledViewButton>
+                                                                <CommonButton type={row["isSubsciptionValid"] === true ? "secondary" : "default" }  > { row[column.id] === true ? "Subscribed" : "Not Subscribed"  } </CommonButton>
                                                             </TableCell>
-                                                        ) : row?.[column.id] === false ? (
+                                                        ) : row?.[column.id] === false && column.id !== "isSubsciptionValid" ? (
                                                             <TableCell>
                                                                 <StyledViewButton>No</StyledViewButton>
                                                             </TableCell>
@@ -106,10 +101,10 @@ const CustomTable = ({ columns, data }) => {
 
                                                             </TableCell>
                                                         ) : typeof row?.[column.id] === 'object' ?
-                                                            <TableCell onClick={() => navigate(`/Details/${row?.id}`)}>{row?.[column.id]?.[column.fieldId]}</TableCell>
+                                                            <TableCell >{row?.[column.id]?.[column.fieldId]}</TableCell>
 
                                                             : (
-                                                                <TableCell style={{ whiteSpace: "nowrap" }} onClick={() => navigate(`/Details/${row?.id}`)}>{row?.[column.id]}</TableCell>
+                                                                <TableCell style={{ whiteSpace: "nowrap" }} >{row?.[column.id]}</TableCell>
 
                                                             )}
                                             </React.Fragment>

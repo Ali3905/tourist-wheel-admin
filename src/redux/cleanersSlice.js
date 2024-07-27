@@ -36,7 +36,7 @@ export const getCleanersAsync = createAsyncThunk(
     async () => {
         const res = await axios({
             method: "get",
-            url: "https://tourist-wheel-server.vercel.app/api/cleaner"
+            url: `https://${process.env.REACT_APP_SERVER_HOST}/api/cleaner`
         })
         return res.data.data;
     }
@@ -48,7 +48,7 @@ export const addCleanerAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "post",
-                url: "https://tourist-wheel-server.vercel.app/api/cleaner",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/cleaner`,
                 data: data
             })
             message[res.data.success ? 'success' : 'error']("Cleaner Created successfully");

@@ -36,7 +36,7 @@ export const getVehiclesAsync = createAsyncThunk(
     async () => {
         const res = await axios({
             method: "get",
-            url: "https://tourist-wheel-server.vercel.app/api/vehicle"
+            url: `https://${process.env.REACT_APP_SERVER_HOST}/api/vehicle`
         })
         return res.data.data;
     }
@@ -48,7 +48,7 @@ export const addVehicleAsync = createAsyncThunk(
         try {
             const res = await axios({
                 method: "post",
-                url: "https://tourist-wheel-server.vercel.app/api/vehicle",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/vehicle`,
                 data: data
             })
             message[res.data.success ? 'success' : 'error']("Vehicle Created successfully");

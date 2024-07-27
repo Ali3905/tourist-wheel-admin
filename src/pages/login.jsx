@@ -4,7 +4,7 @@ import { Card } from '../components/card';
 import { Input, Select, Col, Row, Upload, Image, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import { loginUserAsync } from '../redux/authSlice';
+import { getUserAsync, loginUserAsync } from '../redux/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Styled from '../components/formButton';
 // import Maps from "../../components/maps"
@@ -20,14 +20,17 @@ const labels = [
 
 function Login() {
 
-  const isSignedIn = useSelector(state => state.auth.isSignedIn)
+  const { isSignedIn, user } = useSelector(state => state.auth)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isSignedIn) {
-      navigate("/")
+
+    getUserAsync()
+    if (user && isSignedIn && user.type === "ADMIN") {
+      return navigate("/")
     }
-  }, [isSignedIn])
+
+  }, [isSignedIn, user])
 
   const formItemLayout = {
     labelCol: { span: 12 },

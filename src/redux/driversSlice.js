@@ -37,7 +37,7 @@ export const getDriversAsync = createAsyncThunk(
     async () => {
         const res = await axios({
             method: "get",
-            url: "https://tourist-wheel-server.vercel.app/api/driver",
+            url: `https://${process.env.REACT_APP_SERVER_HOST}/api/driver`,
             headers: {
                 authtoken: localStorage.getItem("token")
             }
@@ -53,7 +53,7 @@ export const addDriverAsync = createAsyncThunk(
             console.log(localStorage.getItem("token"));
             const res = await axios({
                 method: "post",
-                url: "https://tourist-wheel-server.vercel.app/api/driver",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/driver`,
                 data: data,
                 headers: {
                     authtoken: localStorage.getItem("token")

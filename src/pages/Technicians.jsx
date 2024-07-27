@@ -14,6 +14,7 @@ const Technicians = () => {
   const [filteredData, setFilteredData] = useState(data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [apiPage, setApiPage] = useState(1)
   const filteredcolumns = columns
 
   const dispatch = useDispatch()
@@ -39,17 +40,25 @@ const Technicians = () => {
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+    // console.log(rowsPerPage * );
+    console.log(apiPage*100);
+    console.log(rowsPerPage * (page + 1));
+    if ((rowsPerPage * (page + 2)) >= (apiPage * 100)) {
+      setApiPage(apiPage+1)
+    }
   };
 
   const handleChangeRowsPerPage = (event) => {
+    alert(parseInt(event.target.value, 10))
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  useEffect(()=>{
-    dispatch(getTechniciansAsync())
-  }, [])
-  useEffect(()=>{
+  useEffect(() => {
+    dispatch(getTechniciansAsync(apiPage))
+  }, [apiPage])
+
+  useEffect(() => {
     setFilteredData(data)
   }, [data])
 
