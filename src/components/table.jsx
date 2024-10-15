@@ -97,7 +97,7 @@ const CustomTable = ({ columns, data }) => {
                                                             </TableCell>
                                                         ) : column.id === "delete" ? (
                                                             <TableCell>
-                                                                <CommonButton onClick={() => handleDeleteClick(row._id)} >Delete</CommonButton>
+                                                                <CommonButton onClick={() => handleDeleteClick(row.name)} >Delete</CommonButton>
 
                                                             </TableCell>
                                                         ) : typeof row?.[column.id] === 'object' ?
