@@ -22,7 +22,7 @@ import CommonButton from './commonButton';
 import ConfirmationModal from './ConfirmationModal';
 const CustomTable = ({ columns, data }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [selectedTechnicianId, setSelectedTechnicianId] = useState(null)
+    const [selectedTechnician, setSelectedTechnician] = useState(null)
     const navigate = useNavigate()
 
     const StyledViewButton = styled.button`
@@ -46,8 +46,8 @@ const CustomTable = ({ columns, data }) => {
         navigate(`/technician/${id}`)
     }
 
-    const handleDeleteClick = (id) => {
-        setSelectedTechnicianId(id)
+    const handleDeleteClick = (technician) => {
+        setSelectedTechnician(technician)
         setIsModalOpen(true)
     }
     const HoverableTableRow = styled(MuiTableRow)`
@@ -59,7 +59,7 @@ const CustomTable = ({ columns, data }) => {
     return (
 
         <>
-            {selectedTechnicianId && <ConfirmationModal isOpen={isModalOpen} technicianId={selectedTechnicianId} text={`Do you want to delete the ${selectedTechnicianId} technician`} />}
+            {selectedTechnician && <ConfirmationModal isOpen={isModalOpen} technicianId={selectedTechnician._id} text={`Do you want to delete the ${selectedTechnician?.name} technician`} />}
             {
                 data ? <TableContainer component={Paper}>
                     <Table>
@@ -97,7 +97,7 @@ const CustomTable = ({ columns, data }) => {
                                                             </TableCell>
                                                         ) : column.id === "delete" ? (
                                                             <TableCell>
-                                                                <CommonButton onClick={() => handleDeleteClick(row.name)} >Delete</CommonButton>
+                                                                <CommonButton onClick={() => handleDeleteClick(row)} >Delete</CommonButton>
 
                                                             </TableCell>
                                                         ) : typeof row?.[column.id] === 'object' ?
