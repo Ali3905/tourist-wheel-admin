@@ -132,6 +132,7 @@ const MainPage = () => {
       dispatch(addCleanerAsync(formData))
       navigate("/cleaners")
     } else if (currentFormConfig.id === "addEmployee") {
+      formData.append("employeeType", "ADMINISTRATOR")
       dispatch(addEmployeeAsync(formData))
       navigate("/employees")
     } else if (currentFormConfig.id === "addTechnician") {

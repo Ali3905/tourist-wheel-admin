@@ -22,7 +22,7 @@ export const RoutingConfig = [
 	{
 		name: 'Overview',
 		path: '/Overview',
-		component: <Agencies />,
+		component: <Technicians />,
 	},
 	{
 		name: 'Drivers',

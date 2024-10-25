@@ -30,7 +30,8 @@ export const SideMenuConfig = {
 	3: {
 		title: 'Employees List',
 		path: '/employees',
-		icon: WebsiteManagement
+		icon: WebsiteManagement,
+		onlyFor: ["ADMIN"]
 	},
 	4: {
 		title: "Technician Support",
@@ -40,7 +41,7 @@ export const SideMenuConfig = {
 	5: {
 		title: "Agencies",
 		path: "/agencies",
-
+		onlyFor: ["ADMIN"]
 	},
 	// 7: {
 	// 	title: 'Vehicle Management',

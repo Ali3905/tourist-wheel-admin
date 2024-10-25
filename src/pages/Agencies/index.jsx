@@ -12,6 +12,7 @@ import { getAgenciesAsync } from '../../redux/agenciesSlice';
 
 const Agencies = () => {
   const data = useSelector(state => state.agencies.data)
+  const { user } = useSelector(state => state.auth)
 
   const [filteredData, setFilteredData] = useState(data.length > 0 ? data : [])
   
@@ -61,6 +62,15 @@ const Agencies = () => {
   useEffect(() => {
     setFilteredData(data)
   }, [data])
+
+
+  if(user.type !== "ADMIN") {
+    return (
+      <div className='flex justify-center'>
+        <p>You do not have required permisions.</p>
+      </div>
+    )
+  }
 
   return (
     <div>

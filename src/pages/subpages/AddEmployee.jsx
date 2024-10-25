@@ -13,8 +13,9 @@ const labels = [
     { name: 'confirmPassword', label: 'Confirm Password', type: 'text', dependencies: ['password'], rules: [{ required: true, message: 'Please confirm your password' }, ({ getFieldValue }) => ({ validator(_, value) { if (!value || getFieldValue('password') === value) { return Promise.resolve(); } return Promise.reject(new Error('The two passwords do not match')); }, })] },
 
     { name: 'mobileNumber', label: 'Mobile Number', type: 'text', rules: [{ required: true, message: 'Please enter phone number of employee', min: 10, max: 11 }] },
-    { name: 'employeeType', label: 'Employee Type', type: 'select', options: ["MANAGER", "CLEANER", "OFFICE-BOY", "ACCOUNTANT", "TELECALLER"], rules: [{ required: true, message: 'Please enter the city' }] },
+    // { name: 'employeeType', label: 'Employee Type', type: 'select', options: ["MANAGER", "CLEANER", "OFFICE-BOY", "ACCOUNTANT", "TELECALLER"], rules: [{ required: true, message: 'Please enter the city' }] },
     { name: 'state', label: 'State', type: 'text', rules: [{ required: true, message: 'Please enter the state' }] },
+    { name: 'city', label: 'City', type: 'text', rules: [{ required: true, message: 'Please enter the city' }] },
 
     { name: 'photo', label: 'Employee Photo', type: 'file', rules: [{ required: true, message: 'Please provide the photo of Employee' }] },
     { name: 'aadharCard', label: 'Aadhar Card', type: 'file', rules: [{ required: true, message: 'Please provide the photo of aadhar Card' }] },

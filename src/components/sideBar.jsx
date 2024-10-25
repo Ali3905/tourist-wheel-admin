@@ -18,6 +18,7 @@ const AdminSidebar = () => {
   const [openItems, setOpenItems] = useState([]);
   const dispatch = useDispatch();
   const myindex =  useSelector((state) => state.sidebar.selectedParentIndex);
+  const { isSignedIn, user } = useSelector(state => state.auth)
   const navigate = useNavigate()
   const location = useLocation();
 
@@ -111,7 +112,7 @@ dispatch(setSelectedTitle(matchedRoute?.name));
         <div style={{ margin: "0px 15px" }}>
           <Styled.MenuList>
             {Object.entries(SideMenuConfig).map(([key, item]) => (
-              <div key={key}>
+              !item.onlyFor || item.onlyFor.includes(user.type) ?   <div key={key}>
                 <Styled.MenuItem
                   onClick={() => {
                     if (item.child) {
@@ -159,7 +160,7 @@ dispatch(setSelectedTitle(matchedRoute?.name));
                     </div>
                   </div>
                 )}
-              </div>
+              </div> : ""
             ))}
           </Styled.MenuList>
         </div>

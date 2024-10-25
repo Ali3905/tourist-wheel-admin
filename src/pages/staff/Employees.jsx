@@ -10,6 +10,7 @@ import { getEmployeesAsync } from '../../redux/employeesSlice';
 
 const Employees = () => {
   const data = useSelector(state => state.employees.data)
+  const { user } = useSelector(state => state.auth)
   const [filteredData, setFilteredData] = useState(data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -52,13 +53,21 @@ const Employees = () => {
     setFilteredData(data)
   }, [data])
 
+  if(user.type !== "ADMIN") {
+    return (
+      <div className='flex justify-center'>
+        <p>You do not have required permisions.</p>
+      </div>
+    )
+  }
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: "flex-end", alignItems: "center" }}>
 
         <div style={{ display: "flex", justifyContent: "space-between", width: "50%" }}>
 
-          {/* <AddButton /> */}
+          <AddButton />
           <Search onSearchChange={handleSearchChange} />
           <Sort onSortChange={handleSortChange} />
         </div>

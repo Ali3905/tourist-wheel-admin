@@ -6,6 +6,7 @@ import Layout from './layout';
 import FormBuilder from "../pages/builders/formBuilder";
 import Login from '../pages/login';
 import Agencies from '../pages/Agencies';
+import Technicians from '../pages/Technicians';
 
 const route = () => {
     
@@ -20,7 +21,7 @@ const route = () => {
                 <Route path='/login' element={<Login />} />
             </Route>
             <Route element={<Layout />} >
-                <Route path='/' element={<Agencies />} />
+                <Route path='/' element={<Technicians />} />
             </Route>
             <Route element={<Layout />}>
                 {RoutingConfig.map((data, key) => (

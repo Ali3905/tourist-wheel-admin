@@ -29,6 +29,9 @@ function AddButton() {
   let isCondition11 = false;
 
   switch (selectedIndex) {
+    case 3:
+      buttonText = "Add Employee";
+      break;
     case 4:
       buttonText = "Add Technician";
       break;
@@ -42,9 +45,11 @@ function AddButton() {
   };
 
   const handleEvents = () => {
-    if (selectedIndex === 4) {
+    if (selectedIndex === 3) {
+      navigate("/addEmployee")
+    } else if (selectedIndex === 4) {
       navigate("/addTechnician")
-    }  else {
+    }   else {
       handleClosePopup();
     }
   };
