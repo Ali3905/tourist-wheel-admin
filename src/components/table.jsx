@@ -11,19 +11,17 @@ import {
     TableBody
 } from '@mui/material';
 import styled from 'styled-components';
-import HoverPopover from './hoverPopover';
-import ClickPopover from './clickPopover';
-import Status from './statusButtons';
-import { useSelector } from 'react-redux';
-import TableMenu from './tableMenu';
-import Highlate from './highlate'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CommonButton from './commonButton';
 import ConfirmationModal from './ConfirmationModal';
+import ImageModal from './ImageModal';
 const CustomTable = ({ columns, data }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedTechnician, setSelectedTechnician] = useState(null)
+    const [isImageModalOpen, setIsImageModalOpen] = useState(false)
+    const [selectedImage, setSelectedImage] = useState(null)
     const navigate = useNavigate()
+    const { pathname } = useLocation()
 
     const StyledViewButton = styled.button`
     background-color: #ffffff;
@@ -39,16 +37,28 @@ const CustomTable = ({ columns, data }) => {
     }
 `;
 
-    const handleViewClick = (col, row) => {
-        console.log('View clicked for :', col.label);
-    };
+    // const handleViewClick = (col, row) => {
+    //     console.log('View clicked for :', col.label);
+    // };
     const handleUpdateClick = (id) => {
-        navigate(`/technician/${id}`)
+        // alert(`${pathname}/${id}`)
+        navigate(`${pathname}/${id}`)
     }
 
     const handleDeleteClick = (technician) => {
         setSelectedTechnician(technician)
         setIsModalOpen(true)
+    }
+    const handleOpenImageModal = (img, title) => {
+        // alert(img)
+        setIsImageModalOpen(true)
+        setSelectedImage({
+            img, title
+        })
+    }
+    const handleCloseImageModal = () => {
+        setSelectedImage(null)
+        setIsImageModalOpen(false)
     }
     const HoverableTableRow = styled(MuiTableRow)`
     &:hover {
@@ -60,6 +70,7 @@ const CustomTable = ({ columns, data }) => {
 
         <>
             {selectedTechnician && <ConfirmationModal isOpen={isModalOpen} technicianId={selectedTechnician._id} text={`Do you want to delete the ${selectedTechnician?.name} technician`} />}
+            {selectedImage?.img && "IT is True" && <ImageModal isOpen={isImageModalOpen} handleClose={handleCloseImageModal} image={selectedImage.img} title={selectedImage.title} />}
             {
                 data ? <TableContainer component={Paper}>
                     <Table>
@@ -76,16 +87,16 @@ const CustomTable = ({ columns, data }) => {
                                     {columns.map((column) => {
                                         return (
                                             <React.Fragment key={column.id}>
-                                                {column.id === "photo" || column.id === "photos" || column.id === "afterJourneyPhotos" || column.id === "beforeJourneyPhotos" ?
-                                                    <TableCell>
+                                                {column.id === "photos" || column.id === "afterJourneyPhotos" || column.id === "beforeJourneyPhotos" ?
+                                                    <TableCell onClick={() => handleOpenImageModal(row[column.id], "Employee Photo")}>
                                                         <StyledViewButton >View</StyledViewButton>
-                                                    </TableCell> : column.id === "aadharCard" ?
-                                                        <TableCell>
+                                                    </TableCell> : column.id === "photo" || column.id === "license" || column.id === "aadharCard" ?
+                                                        <TableCell onClick={() => handleOpenImageModal(row[column.id], column.id.toUpperCase())}>
                                                             <StyledViewButton >View</StyledViewButton>
                                                         </TableCell> :
                                                         column.id === "isSubsciptionValid" ? (
                                                             <TableCell>
-                                                                <CommonButton type={row["isSubsciptionValid"] === true ? "secondary" : "default" }  > { row[column.id] === true ? "Subscribed" : "Not Subscribed"  } </CommonButton>
+                                                                <CommonButton type={row["isSubsciptionValid"] === true ? "secondary" : "default"}  > {row[column.id] === true ? "Subscribed" : "Not Subscribed"} </CommonButton>
                                                             </TableCell>
                                                         ) : row?.[column.id] === false && column.id !== "isSubsciptionValid" ? (
                                                             <TableCell>

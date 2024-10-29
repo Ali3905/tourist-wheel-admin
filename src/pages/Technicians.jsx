@@ -22,7 +22,7 @@ const Technicians = () => {
 
   const handleSearchChange = (value) => {
     const newFilteredData = data.filter((item) =>
-      Object.values(item).some((val) => val.toString().toLowerCase().includes(value.toLowerCase()))
+      Object.values(item).some((val) => val?.toString().toLowerCase().includes(value.toLowerCase()))
     );
     setPage(0);
     setFilteredData(newFilteredData);

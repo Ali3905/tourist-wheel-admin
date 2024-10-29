@@ -9,6 +9,8 @@ import AddEmployee from "../pages/subpages/AddEmployee.jsx";
 import AddTruck from "../pages/subpages/AddTruck.jsx";
 import Login from "../pages/login.jsx";
 import UpdateTechnician from "../pages/UpdateTechnician.jsx";
+import UpdateEmployee from "../pages/UpdateEmployee.jsx";
+import UpdateDriver from "../pages/UpdateDriver.jsx";
 export const SubpageRoutingConfig = [
 	// {
 	// 	name: "Login",
@@ -21,6 +23,11 @@ export const SubpageRoutingConfig = [
 		component: <AddDriver />,
 	},
 	{
+		name: 'Update Driver',
+		path: '/drivers/:driverId',
+		component: <UpdateDriver />,
+	},
+	{
 		name: 'Add Cleaner',
 		path: '/addCleaner',
 		component: <AddCleaner />,
@@ -31,13 +38,18 @@ export const SubpageRoutingConfig = [
 		component: <AddEmployee />,
 	},
 	{
+		name: 'Update Employee',
+		path: '/employees/:employeeId',
+		component: <UpdateEmployee />,
+	},
+	{
 		name: 'Add Technician',
 		path: '/addTechnician',
 		component: <AddTechnician />,
 	},
 	{
-		name: 'Add Technician',
-		path: '/technician/:technicianId',
+		name: 'Update Technician',
+		path: '/technicians/:technicianId',
 		component: <UpdateTechnician />,
 	},
 	{

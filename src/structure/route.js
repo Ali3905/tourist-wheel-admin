@@ -7,9 +7,11 @@ import FormBuilder from "../pages/builders/formBuilder";
 import Login from '../pages/login';
 import Agencies from '../pages/Agencies';
 import Technicians from '../pages/Technicians';
+import { useSelector } from 'react-redux';
+import Employees from '../pages/staff/Employees';
 
-const route = () => {
-    
+const RouteContainer = () => {
+    const { user } = useSelector(state => state.auth)
 
     return (
         <Routes>
@@ -21,7 +23,7 @@ const route = () => {
                 <Route path='/login' element={<Login />} />
             </Route>
             <Route element={<Layout />} >
-                <Route path='/' element={<Technicians />} />
+                <Route path='/' element={user?.type === "ADMIN" ? <Technicians /> : user?.employeeType === "BPO" ? <Technicians /> : user?.employeeType === "HR" ? <Employees /> : <Agencies />} />
             </Route>
             <Route element={<Layout />}>
                 {RoutingConfig.map((data, key) => (
@@ -47,4 +49,4 @@ const route = () => {
     )
 };
 
-export default route;
+export default RouteContainer;

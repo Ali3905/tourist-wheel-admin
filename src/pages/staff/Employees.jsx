@@ -21,7 +21,7 @@ const Employees = () => {
 
   const handleSearchChange = (value) => {
     const newFilteredData = data.filter((item) =>
-      Object.values(item).some((val) => val.toString().toLowerCase().includes(value.toLowerCase()))
+      Object.values(item).some((val) => val?.toString().toLowerCase().includes(value.toLowerCase()))
     );
     setPage(0);
     setFilteredData(newFilteredData);
@@ -53,7 +53,7 @@ const Employees = () => {
     setFilteredData(data)
   }, [data])
 
-  if(user.type !== "ADMIN") {
+  if(user.type !== "ADMIN" && user.employeeType !== "HR") {
     return (
       <div className='flex justify-center'>
         <p>You do not have required permisions.</p>

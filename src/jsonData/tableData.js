@@ -798,6 +798,11 @@ export const columnsForDrivers = [
     { id: 'vehicleType', label: 'Vehicle Type' },
     { id: 'city', label: 'City' },
     { id: 'mobileNumber', label: 'Mobile No' },
+    { id: 'photo', label: 'Photo' },
+    { id: 'aadharCard', label: 'Aadhar Card' },
+    { id: 'license', label: 'License' },
+    { id: 'edit', label: 'Edit' },
+    { id: 'delete', label: 'Delete' },
 ];
 
 export const dataForDrivers = [{
@@ -1105,6 +1110,8 @@ export const columnsForEmployees = [
     { id: 'employeeType', label: 'Employee Type' },
     { id: "aadharCard", label: "Aadhar Card" },
     { id: "photo", label: "Employee Photo" },
+    { id: "edit", label: "Edit" },
+    { id: "delete", label: "Delete" },
 ]
 
 export const dataForEmployees = [{

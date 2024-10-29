@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { closePopup } from '../redux/popupSlice';
 import { useNavigate } from 'react-router-dom';
+
 const StyledButton = styled.button`
   width: 150px;
   height: 43px;
@@ -29,6 +30,9 @@ function AddButton() {
   let isCondition11 = false;
 
   switch (selectedIndex) {
+    case 1:
+      buttonText = "Add Driver";
+      break;
     case 3:
       buttonText = "Add Employee";
       break;
@@ -45,7 +49,9 @@ function AddButton() {
   };
 
   const handleEvents = () => {
-    if (selectedIndex === 3) {
+    if (selectedIndex === 1) {
+      navigate("/addDriver")
+    } else if (selectedIndex === 3) {
       navigate("/addEmployee")
     } else if (selectedIndex === 4) {
       navigate("/addTechnician")

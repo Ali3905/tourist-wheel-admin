@@ -19,29 +19,32 @@ export const SideMenuConfig = {
 	1: {
 		title: 'Drivers',
 		path: '/drivers',
-		icon: WebsiteManagement
+		icon: WebsiteManagement,
+		onlyFor: ["ADMIN", "BPO"]
 	},
 	2: {
 		title: 'Vehicle package booking',
 		path: '/packageBooking',
-		icon: WebsiteManagement
+		icon: WebsiteManagement,
+		onlyFor: ["ADMIN"]
 	},
 
 	3: {
 		title: 'Employees List',
 		path: '/employees',
 		icon: WebsiteManagement,
-		onlyFor: ["ADMIN"]
+		onlyFor: ["ADMIN", "HR"]
 	},
 	4: {
 		title: "Technician Support",
 		path: "/technicians",
+		onlyFor: ["ADMIN", "BPO"]
 
 	},
 	5: {
 		title: "Agencies",
 		path: "/agencies",
-		onlyFor: ["ADMIN"]
+		onlyFor: ["ADMIN", "SALES-EXECUTIVE"]
 	},
 	// 7: {
 	// 	title: 'Vehicle Management',

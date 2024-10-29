@@ -8,9 +8,7 @@ const ConfirmationModal = ({ isOpen, technicianId, text }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState(text);
   const dispatch = useDispatch()
-  const showModal = () => {
-    setOpen(true);
-  };
+  
   const handleOk = () => {
     setModalText('Deleting the Technician');
     setConfirmLoading(true);

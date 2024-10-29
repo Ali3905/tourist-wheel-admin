@@ -112,7 +112,7 @@ dispatch(setSelectedTitle(matchedRoute?.name));
         <div style={{ margin: "0px 15px" }}>
           <Styled.MenuList>
             {Object.entries(SideMenuConfig).map(([key, item]) => (
-              !item.onlyFor || item.onlyFor.includes(user.type) ?   <div key={key}>
+              !item.onlyFor || item.onlyFor.includes(user.type || user.employeeType) ?   <div key={key}>
                 <Styled.MenuItem
                   onClick={() => {
                     if (item.child) {

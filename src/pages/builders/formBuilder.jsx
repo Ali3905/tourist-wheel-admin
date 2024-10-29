@@ -9,10 +9,10 @@ import Search from '../../components/search';
 import Sort from '../../components/sort';
 import { columnsForCouponTable, columnsForWalletsTable, columnsForRefundTable, RefundDummyData, CouponDummyData, WalletDummyData } from '../../jsonData/tableData';
 import CustomTablePagination from '../../components/CustomTablePagination';
-import { addDriverAsync } from '../../redux/driversSlice';
+import { addDriverAsync, updateDriverAsync } from '../../redux/driversSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addCleanerAsync } from '../../redux/cleanersSlice';
-import { addEmployeeAsync } from '../../redux/employeesSlice';
+import { addEmployeeAsync, updateEmployeeAsync } from '../../redux/employeesSlice';
 import { addTechnicianAsync, updateTechnicianAsync } from '../../redux/technicianSlice';
 import { addVehicleAsync } from '../../redux/vehiclesSlice';
 import { loginUserAsync } from '../../redux/authSlice';
@@ -31,7 +31,7 @@ const MainPage = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const filteredcolumnsForCouponTable = columnsForCouponTable
   const navigate = useNavigate()
-  const { technicianId } = useParams()
+  const { technicianId, employeeId, driverId } = useParams()
 
   const handleFilterChange = ({ column, fromValue, toValue }) => {
     const formatDate = (date) => date ? new Date(date).toLocaleDateString() : null;
@@ -106,7 +106,9 @@ const MainPage = () => {
       { id: 'addTechnician', path: '/addTechnician', formType: 'technician' },
       { id: 'addEmployee', path: '/addEmployee', formType: 'employee' },
       { id: 'login', path: '/login', formType: 'login' },
-      { id: 'editTechnician', path: '/technician', formType: 'login' },
+      { id: 'editTechnician', path: '/technicians', formType: 'login' },
+      { id: 'editEmployee', path: '/employees', formType: 'login' },
+      { id: 'editDriver', path: '/drivers', formType: 'login' },
     ];
 
     const currentFormConfig = formsConfig.find((config) => location.pathname.startsWith(config.path));
@@ -132,7 +134,6 @@ const MainPage = () => {
       dispatch(addCleanerAsync(formData))
       navigate("/cleaners")
     } else if (currentFormConfig.id === "addEmployee") {
-      formData.append("employeeType", "ADMINISTRATOR")
       dispatch(addEmployeeAsync(formData))
       navigate("/employees")
     } else if (currentFormConfig.id === "addTechnician") {
@@ -156,10 +157,20 @@ const MainPage = () => {
       navigate("/vehicles")
     } else if (currentFormConfig.id === "login") {
       dispatch(loginUserAsync(values))
-    }  else if (currentFormConfig.id === "editTechnician") {
+    } else if (currentFormConfig.id === "editTechnician") {
       const finalVal = { ...values, technicianId }
+      console.log({ finalVal });
       dispatch(updateTechnicianAsync(finalVal))
-      navigate("/technicians")
+      // navigate("/technicians")
+    } else if (currentFormConfig.id === "editEmployee") {
+      const finalVal = { ...values, employeeId }
+      dispatch(updateEmployeeAsync(finalVal))
+      navigate("/employees")
+    } else if (currentFormConfig.id === "editDriver") {
+      const finalVal = { ...values, driverId }
+
+      dispatch(updateDriverAsync(finalVal))
+      navigate("/drivers")
     }
     setIsLoading(false)
   };
@@ -244,13 +255,13 @@ const MainPage = () => {
         )
       }
 
-      
+
 
       <Form form={form} layout="vertical" onFinish={onFinish} >
         <Outlet context={{ handleFileChange }} />
         <div style={{ display: 'flex', justifyContent: 'end' }}>
           <Styled.SubmitButton primary={myindex !== 21 && myindex !== 22 && myindex !== 24} htmlType="submit">
-            {isLoading?"Saving":"Save"}
+            {isLoading ? "Saving" : "Save"}
           </Styled.SubmitButton>
         </div>
       </Form>

@@ -15,15 +15,15 @@ const Agencies = () => {
   const { user } = useSelector(state => state.auth)
 
   const [filteredData, setFilteredData] = useState(data.length > 0 ? data : [])
-  
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const filteredcolumnsForDrivers = columnsForAgencies
+  const filteredcolumnsForDrivers = user.type === "ADMIN" ? columnsForAgencies : columnsForAgencies.filter((col) => col.id !== "isSubsciptionValid")
 
   const dispatch = useDispatch()
 
 
- 
+
 
 
   const handleSearchChange = (value) => {
@@ -56,7 +56,7 @@ const Agencies = () => {
   useEffect(() => {
     dispatch(getAgenciesAsync())
     // console.log({data});
-    
+
   }, [])
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const Agencies = () => {
   }, [data])
 
 
-  if(user.type !== "ADMIN") {
+  if (user.type !== "ADMIN" && user.employeeType !== "SALES-EXECUTIVE") {
     return (
       <div className='flex justify-center'>
         <p>You do not have required permisions.</p>
@@ -98,7 +98,7 @@ const Agencies = () => {
               rowsPerPage={rowsPerPage}
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
-          </> 
+          </>
         }
       </div>
     </div>

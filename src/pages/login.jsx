@@ -17,9 +17,9 @@ function Login() {
   const [userType, setUserType] = useState("admin")
 
   const labels = [
-    userType === "admin"?
-    { name: 'userName', label: 'User Name', type: 'text', rules: [{ required: true, message: 'Please enter user name' }] } :
-    { name: 'mobileNumber', label: 'Mobile Number', type: 'text', rules: [{ required: true, message: 'Please enter Mobile Number' }] }
+    userType === "admin" ?
+      { name: 'userName', label: 'User Name', type: 'text', rules: [{ required: true, message: 'Please enter user name' }] } :
+      { name: 'mobileNumber', label: 'Mobile Number', type: 'text', rules: [{ required: true, message: 'Please enter Mobile Number' }] }
     ,
 
     { name: 'password', label: 'Password', type: 'password', rules: [{ required: true, message: 'Please enter your password' }] },
@@ -29,7 +29,7 @@ function Login() {
   useEffect(() => {
 
     getUserAsync()
-    if (user && isSignedIn && (user.type === "ADMIN" || user.employeeType === "ADMINISTRATOR")) {
+    if (user && isSignedIn && (user.type === "ADMIN" || user.employeeType === "ADMINISTRATOR" || user.employeeType ===  "HR" || user.employeeType ===  "BPO" || user.employeeType ===  "SALES-EXECUTIVE" || user.employeeType ===  "DIGITAL-MARKETER" || user.employeeType ===  "MARKETING-EXECUTIVE")) {
       return navigate("/")
     }
 
@@ -58,7 +58,7 @@ function Login() {
     <Col span={24} >
       <div className='flex justify-center gap-[20px]'>
         <label htmlFor="admin" className='flex items-center gap-1'>
-          <input type="radio" name='userType' id='admin' onChange={() => setUserType("admin")} checked={userType==="admin"} />
+          <input type="radio" name='userType' id='admin' onChange={() => setUserType("admin")} checked={userType === "admin"} />
           Admin
         </label>
         <label htmlFor="employee" className='flex items-center gap-1'>

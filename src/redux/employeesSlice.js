@@ -27,6 +27,16 @@ const employeesSlice = createSlice({
                 (state, action) => {
                     state.data.push(action.payload)
             })
+            .addCase(updateEmployeeAsync.fulfilled,
+                (state, action) => {
+                    const filtered = state.data.map((emp) => {
+                        if (emp._id !== action.payload._id) {
+                            return emp
+                        }
+                        return action.payload
+                    })
+                    state.data = filtered
+                })
     },
 });
 
@@ -61,6 +71,26 @@ export const addEmployeeAsync = createAsyncThunk(
             return res.data.data;
         } catch (error) {
             message['error']("Could not create Employee")
+        }
+    }
+);
+
+export const updateEmployeeAsync = createAsyncThunk(
+    "employees/updateEmployee",
+    async (data) => {
+        try {
+            const res = await axios({
+                method: "patch",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/employee?employeeId=${data.employeeId}`,
+                data: data,
+                headers: {
+                    authtoken: localStorage.getItem("token")
+                }
+            })
+            message[res.data.success ? 'success' : 'error']("Employee Updated successfully");
+            return res.data.data;
+        } catch (error) {
+            message['error']("Could not update Employee")
         }
     }
 );
