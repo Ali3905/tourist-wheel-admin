@@ -28,6 +28,10 @@ const driversSlice = createSlice({
                 (state, action) => {
                     state.data.push(action.payload)
                 })
+            .addCase(deleteDriverAsync.fulfilled,
+                (state, action) => {
+                    state.data = state.data.filter(driver => driver._id !== action.payload)
+                })
             .addCase(updateDriverAsync.fulfilled,
                 (state, action) => {
                     const filtered = state.data.map((driver) => {
@@ -96,6 +100,26 @@ export const updateDriverAsync = createAsyncThunk(
         }
     }
 );
+
+
+export const deleteDriverAsync = createAsyncThunk(
+    "drivers/deleteDriver",
+    async (driverId) => {
+        try {
+            const res = await axios({
+                method: "delete",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/driver?driverId=${driverId}`,
+                headers: {
+                    authtoken: localStorage.getItem("token")
+                }
+            })
+            message[res.data.success ? 'success' : 'error']("Driver deleted successfully");
+            return driverId
+        } catch (error) {
+            message['error']("Could not delete Driver")
+        }
+    }
+)
 
 export const { addDriver } = driversSlice.actions;
 

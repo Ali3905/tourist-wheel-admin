@@ -37,9 +37,6 @@ const CustomTable = ({ columns, data }) => {
     }
 `;
 
-    // const handleViewClick = (col, row) => {
-    //     console.log('View clicked for :', col.label);
-    // };
     const handleUpdateClick = (id) => {
         // alert(`${pathname}/${id}`)
         navigate(`${pathname}/${id}`)
@@ -69,7 +66,7 @@ const CustomTable = ({ columns, data }) => {
     return (
 
         <>
-            {selectedTechnician && <ConfirmationModal isOpen={isModalOpen} technicianId={selectedTechnician._id} text={`Do you want to delete the ${selectedTechnician?.name} technician`} />}
+            {selectedTechnician && <ConfirmationModal isOpen={isModalOpen} technicianId={selectedTechnician._id} text={`Do you want to delete the ${selectedTechnician?.name} ${pathname === "/technicians" ? "Technician" : pathname === "/employees" ? "Employee" : pathname === "/drivers" ? "Driver" : ""}`} />}
             {selectedImage?.img && "IT is True" && <ImageModal isOpen={isImageModalOpen} handleClose={handleCloseImageModal} image={selectedImage.img} title={selectedImage.title} />}
             {
                 data ? <TableContainer component={Paper}>

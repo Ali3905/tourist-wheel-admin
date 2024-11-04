@@ -27,6 +27,10 @@ const employeesSlice = createSlice({
                 (state, action) => {
                     state.data.push(action.payload)
             })
+            .addCase(deleteEmployeeAsync.fulfilled,
+                (state, action) => {
+                    state.data = state.data.filter(employee => employee._id !== action.payload)
+                })
             .addCase(updateEmployeeAsync.fulfilled,
                 (state, action) => {
                     const filtered = state.data.map((emp) => {
@@ -94,6 +98,26 @@ export const updateEmployeeAsync = createAsyncThunk(
         }
     }
 );
+
+
+export const deleteEmployeeAsync = createAsyncThunk(
+    "employees/deleteEmployee",
+    async (employeeId) => {
+        try {
+            const res = await axios({
+                method: "delete",
+                url: `https://${process.env.REACT_APP_SERVER_HOST}/api/employee?employeeId=${employeeId}`,
+                headers: {
+                    authtoken: localStorage.getItem("token")
+                }
+            })
+            message[res.data.success ? 'success' : 'error']("Employee deleted successfully");
+            return employeeId
+        } catch (error) {
+            message['error']("Could not delete Employee")
+        }
+    }
+)
 
 
 export default employeesSlice.reducer;
