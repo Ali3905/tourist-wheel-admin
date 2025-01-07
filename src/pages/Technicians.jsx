@@ -64,12 +64,12 @@ const Technicians = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: "flex-end", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: "center" }}>
 
-        <div style={{ display: "flex", justifyContent: "space-between", width: "50%" }}>
+        <div className='sm:w-1/2 w-full' style={{ display: "flex"}}>
 
           <AddButton />
-          <Search onSearchChange={handleSearchChange} />
+          <Search onSearchChange={handleSearchChange} width={"auto"} />
           <Sort onSortChange={handleSortChange} />
         </div>
       </div>
