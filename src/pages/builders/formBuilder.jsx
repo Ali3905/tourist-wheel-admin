@@ -161,7 +161,7 @@ const MainPage = () => {
       const finalVal = { ...values, technicianId }
       console.log({ finalVal });
       dispatch(updateTechnicianAsync(finalVal))
-      // navigate("/technicians")
+      navigate("/technicians")
     } else if (currentFormConfig.id === "editEmployee") {
       const finalVal = { ...values, employeeId }
       dispatch(updateEmployeeAsync(finalVal))

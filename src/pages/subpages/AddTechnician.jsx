@@ -56,7 +56,7 @@ function AddTechnician() {
                                         >
                                             {field.options.map((option) => (
                                                 <Option key={option} value={option}>
-                                                    {option}
+                                                    {option === "TAMPO"? "TAMPO-TRAVELLER" : option}
                                                 </Option>
                                             ))}
                                         </Select>
